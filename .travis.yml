@@ -1,0 +1,20 @@
+language: c
+compiler:
+  - gcc
+addons:
+  apt:
+    packages:
+      - build-essential
+      - valgrind
+script:
+  - cmake .
+  - make
+  - ctest
+  - valgrind ./cppproject 10
+deploy:
+  provider: releases
+  api_key: $GITHUB_TOKEN
+  file: "cppproject"
+  skip_cleanup: true
+  on:
+    tags: true
